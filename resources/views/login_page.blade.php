@@ -1,23 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Taskify</title>
-	<meta charset="utf-8">
-	<link rel="stylesheet" type="text/css" href="CSS_files/signin.css">
-</head>
-<body>
-
-<nav id="nav_top">
-	<ul >
-		<li><a href="index.html">Início </a></li>
-		<li>sjdf</li>
-	</ul>
-</nav>
+@extends('html_structure')
+@section('css link')
+	<link rel="stylesheet" type="text/css" href="{{ url('css/signin.css') }}">
+@endsection('css link')
+@section('content')
 
 <div id="painel">
 	<img src="images/icons/male_user.png" width="30%" style="margin: 0 auto 5% auto;">
 
-	<h2>Create You Taskify Account</h2> <br><br>
+	<h2>Log In to Taskify!</h2> <br><br>
 
 	<form>
 		<input type="name" name="user" placeholder="Username">
@@ -27,5 +17,4 @@
 	</form>
 
 </div>
-</body>
-</html>
+@endsection('content')
