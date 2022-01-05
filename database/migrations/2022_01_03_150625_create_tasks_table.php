@@ -20,8 +20,8 @@ class CreateTasksTable extends Migration
             $table->string('nome');
             $table->text('descricao');
             $table->dateTime('prazo');
-            $table->integer('task_id');
-            $table->foreign('task_id')->references('id')->on('users');
+            $table->integer('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

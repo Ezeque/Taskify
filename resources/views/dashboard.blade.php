@@ -33,11 +33,12 @@
 	<div class="h-75" id="main">
 		@include('subviews.painel_principal')
 	@auth
-		<div id="user_pannel" class="d-flex flex-column align-items-center justify-content-around">
-			<div>{{$request->user()->profilePhoto}}</div>
-			<ul class="flex-column justify-content-center">
+		<div id="user_pannel" class="d-flex flex-column align-items-center justify-content-around border border-dark">
+			<div class="border border-dark" style="background-color:#551974; background-image: url({{$request->user()->profile_photo_url}});
+			background-size: cover; background-position: center; border-radius: 50%; width:100px; height:100px">
+			</div>
+			<ul class="w-100 flex-column align-items-start">
 				<li><span class="fw-bold">Username:</span> {{$request->user()->name}}</li>
-				<li><span class="fw-bold">Email:</span> {{$request->user()->email}}</li>
 				<li><span class="fw-bold">Rank:</span> </li>
 			</ul>
 			<a href="/profile/edit">Change profile</a>

@@ -4,5 +4,5 @@
 @endsection('css link')
 @section('content')
     @include('subviews.navbar')
-    @include('subviews.painel_principal',['request' => $request])
+    @include('subviews.painel_principal',['tasks' => $tasks])
 @endsection

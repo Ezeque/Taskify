@@ -19,6 +19,10 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
 
+    public function tasks(){
+        return $this->hasMany(Task::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *
@@ -60,7 +64,4 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function Tasks(){
-        return $this->hasMany(Task::class);
-    }
 }
