@@ -29,7 +29,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/Tasks', function (Request
     /* print '<pre>';
         var_dump(Task::all());
     print '</pre>'; */
-    return view('taskify', ['tasks'=> Task::all()]);
+    return view('taskify', ['tasks'=> $request->user()->tasks]);
 })->name('Taskify');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/Tasks/Create', function (Request $request) {
@@ -38,7 +38,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/Tasks/Create', function (
 Route::post('/Tasks/Create', [TaskController::class, 'create']);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/Tasks/{id}', function(Request $request){
-    $task = $request->user->tasks()->find(1);
+    $task = $request->user()->tasks()->find(1);
     return view('edit', ['task' => $task]);
 })->name('Edit');
 Route::middleware(['auth:sanctum', 'verified'])->post('/Tasks/{id}', [TaskController::class, 'edit']);
@@ -48,6 +48,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/logout', [LogoutControlle
 Route::middleware(['auth:sanctum', 'verified'])->post('/delete', function(Request $request){
     dd($request->destroy());
 });
+
+Route::post('/complete', [TaskController::class, 'complete']);
 
 Route::get('/Profile', function(){
     return view('profile.show');

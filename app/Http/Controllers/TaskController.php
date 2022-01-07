@@ -30,4 +30,15 @@ class TaskController extends Controller
         $task->update();
         return redirect()->route('Taskify');
     }
+
+    public function complete(Request $request){
+        $user = $request->user();
+        $task = $user->tasks()->find(1);
+        $task->complete = True;
+        $task->update();
+        $user->xp += rand(0, 10);
+        $user->level = intdiv($user->xp, 15);
+        $user->update();
+        dd($request->user());
+    }
 }

@@ -32,13 +32,34 @@
             </h1>
         @endguest
         @auth
-            <h1 class="text-dark">Hello <span style="color: #8332AC">{{ $request->user()->name }}</span></h1>
+        <div class="border border-dark" style="background-color:#551974; background-image: url({{$request->user()->profile_photo_url}});
+			background-size: cover; background-position: center; border-radius: 50%; width:200px; height:200px;">
+			</div>
+            <h1 class="text-dark">
+                Hello 
+                <span style="color: #8332AC">{{ $request->user()->name }}</span>,
+                <em class="text-dark">The <span style="color: #8332AC">{{ $request->user()->title }}</em></span>
+            </h1>
             <h4 class="text-dark">Ready to be productive today?</h4>
-            <div class="d-flex flex-column align-items-lg-start">
-            <h5 class="text-dark">You have a total of 
-                <span style="color: #8332AC">{{$request->user()->tasks()->count()}}
-                </span> pending tasks.</h5>
+            <div class="d-flex justify-content-around w-100 mt-5">
+                <div class="d-flex flex-column align-items-start" style="width:30%">
+                    <h5 class="text-dark">You have a total of
+                        <span style="color: #8332AC">{{ $request->user()->tasks()->count() }}
+                        </span> pending tasks.
+                    </h5>
+                </div>
+                <div class="d-flex flex-column align-items-start" style="width:30%">
+                    <h5 class="text-dark">You are currently at level
+                        <span style="color: #8332AC">{{ $request->user()->level }}
+                        </span> !
+                    </h5>
+                    <h5 class="text-dark">Your total experience is
+                        <span style="color: #8332AC">{{ $request->user()->xp }}
+                        </span>.
+                    </h5>
+                </div>
             </div>
+            <span class="text-dark"></span>
         @endauth
     @endif
 
@@ -51,14 +72,15 @@
                     <span class="text-dark">Name:</span> {{ $task->nome }}
                 </div>
                 <div class="fw-bold w-25">
-                    <span class="text-dark">Deadline:</span> <span id="prazo{{$task->id}}" style="color: #8332AC">
-                        {{ $task->prazo }} 
+                    <span class="text-dark">Deadline:</span> <span id="prazo{{ $task->id }}"
+                        style="color: #8332AC">
+                        {{ $task->prazo }}
                     </span>
                 </div>
             </a>
             <script>
-                data = '{{$task->prazo}}'
-                $('#prazo{{$task->id}}').html(data.replace(/-/g,'/'))
+                data = '{{ $task->prazo }}'
+                $('#prazo{{ $task->id }}').html(data.replace(/-/g, '/'))
             </script>
         @endforeach
         <div class="w-100 d-flex flex-column align-items-center justify-content-center border-dark border-top pt-2">
