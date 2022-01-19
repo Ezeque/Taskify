@@ -23,6 +23,10 @@ class User extends Authenticatable
         return $this->hasMany(Task::class);
     }
 
+    public function rank(){
+        return $this->hasOne(Rank::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *

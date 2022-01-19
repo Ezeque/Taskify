@@ -39,15 +39,19 @@
      @endguest
 
      <div class="h-75 mb-2" id="main">
-     @include('subviews.painel_principal')
+         @guest
+         @include('subviews.painel_principal')
+         @endguest
      @auth
+        @include('subviews.painel_principal', ['tasks' => $tasks, 'task' => $task])
+
          <div id="user_pannel" class="d-flex flex-column align-items-center justify-content-around border border-dark">
          <div class="border border-dark" style="background-color:#551974; background-image: url({{ $request->user()->profile_photo_url }});
            background-size: cover; background-position: center; border-radius: 50%; width:100px; height:100px">
          </div>
          <ul class="w-100 flex-column align-items-start">
          <li><span class="fw-bold">Username:</span> {{ $request->user()->name }}</li>
-         <li><span class="fw-bold">Rank:</span> </li>
+         <li><span class="fw-bold">Rank:</span> #{{ $request->user()->rank->position }} </li>
          </ul>
          <a href="/profile/edit">Change profile</a>
          </div>

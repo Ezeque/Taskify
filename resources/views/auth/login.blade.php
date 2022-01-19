@@ -11,7 +11,7 @@
 
 	<form method="POST">
 		@csrf
-		<input type="email" name="email" placeholder="Email" autocomplete="off">
+		<input type="email" name="email" placeholder="Email">
 		<input type="password" name="password" placeholder="Password">
 
 		<input class="b_apresentative" type="submit" name="envio" value="Submit">

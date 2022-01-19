@@ -26,7 +26,6 @@ class CreateUsersTable extends Migration
             $table->integer("level")->default(1);
             $table->integer("xp")->default(0);
             $table->string('title')->default('Begginer');
-            
         });
     }
 

@@ -32,11 +32,11 @@
             </h1>
         @endguest
         @auth
-        <div class="border border-dark" style="background-color:#551974; background-image: url({{$request->user()->profile_photo_url}});
-			background-size: cover; background-position: center; border-radius: 50%; width:200px; height:200px;">
-			</div>
+            <div class="border border-dark" style="background-color:#551974; background-image: url({{ $request->user()->profile_photo_url }});
+                   background-size: cover; background-position: center; border-radius: 50%; width:200px; height:200px;">
+            </div>
             <h1 class="text-dark">
-                Hello 
+                Hello
                 <span style="color: #8332AC">{{ $request->user()->name }}</span>,
                 <em class="text-dark">The <span style="color: #8332AC">{{ $request->user()->title }}</em></span>
             </h1>
@@ -44,8 +44,12 @@
             <div class="d-flex justify-content-around w-100 mt-5">
                 <div class="d-flex flex-column align-items-start" style="width:30%">
                     <h5 class="text-dark">You have a total of
-                        <span style="color: #8332AC">{{ $request->user()->tasks()->count() }}
+                        <span style="color: #8332AC">{{ $tasks->count() }}
                         </span> pending tasks.
+                    </h5>
+                    <h5 class="text-dark">Your total rank position is
+                        <span style="color: #8332AC">#{{ $request->user()->rank->position }}
+                        </span>.
                     </h5>
                 </div>
                 <div class="d-flex flex-column align-items-start" style="width:30%">
@@ -59,7 +63,36 @@
                     </h5>
                 </div>
             </div>
-            <span class="text-dark"></span>
+            @if (!$task == null)
+            <div class="text-dark d-flex flex-column align-items-center mt-4 w-100">
+                <em>
+                    <h2 class="display-5 text-dark">Your most urgent task:</h2>
+                </em>
+
+                <a href="/Tasks/{{ $task->id }}"
+                    class="w-75 border border-dark py-2 d-flex justify-content-around flex-column align-items-center">
+                    <div class="d-flex flex-column align-items-center">
+                        <h3 class="mb-3" style="color: #8332AC">{{ $task->nome }}</h3>
+                        <div class="d-flex  justify-content-around">
+                            <div class="fw-bold mb-2 w-25">
+                                <span style="color: #8332AC">Deadline:</span>
+                                <span class="text-dark" id="prazo{{ $task->id }}">{{ $task->prazo }}</span>
+                            </div>
+                            <div class="fw-bold w-50">
+                                <span style="color: #8332AC">Description:</span>
+                                <span class="text-dark">{{ $task->descricao }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+            <script>
+                data = '{{ $task->prazo }}'
+                $('#prazo{{ $task->id }}').html(data.replace(/-/g, '/'))
+            </script>
+            @endif
+            
         @endauth
     @endif
 
@@ -108,7 +141,12 @@
                 @include('subviews.form_components.prazo')
 
                 {{-- BOTÃO --}}
-                @include('subviews.form_components.botao')
+                @if (Route::currentRouteName() == 'Edit')
+                    @include('subviews.form_components.botao', ['task' => $task])
+                    @else
+                    @include('subviews.form_components.botao')
+                @endif
+                
             </div>
         </form>
     @endif

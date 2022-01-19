@@ -5,8 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Task extends Model
+class Rank extends Model
 {
-    protected $fillable = ['nome', 'descricao', 'prazo'];
+    protected $table = 'rank';
+    public $fillable = ['user_id'];
+    public $timestamps = false;
     use HasFactory;
 }
